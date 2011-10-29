@@ -124,5 +124,6 @@ $('#loader').loader( loaders.circles.large );
  Credit
 -----------------------------------------------
 This plugin was created by Luke Stebner and is available free for anyone to use and modify. The base 
-logic was ported from the Raphael demo http://raphaeljs.com/spin-spin-spin.html. 
+logic was ported from the Raphael demo http://raphaeljs.com/spin-spin-spin.html and there is a live
+demo available at http://lukestebner.com/michelangeloader/
 
