@@ -19,13 +19,42 @@ Basic Example
 
 (js)
 $('#loader').loader({
-	$('#loader').loader({
-	    type: "dots",
-	    width: 9,
-	    color: "#333333",
-	    start: true,
-	    sectors: 8,
-	    d: 30
+    type: "dots",
+    width: 9,
+    color: "#333333",
+    start: true,
+    sectors: 8,
+    d: 30
+});
+
+-----------------------------------------------
+Event-Based Example
+-----------------------------------------------
+(html)
+<div id="loader"></div>
+<a href="#" id="make-stuff">Make Stuff</a>
+
+(js)
+$('#loader').loader({
+	type: "dots",
+	width: 9,
+	color: "#333333",
+	start: false,
+	sectors: 8,
+	d: 30
+}).hide(); //chainable!
+
+$('#make-stuff').click(function(e){
+	e.preventDefault();
+	
+	$('#loader').loader('show');
+	
+	$.ajax({
+		type: 'POST',
+		url: '/somewhere/over/the/rainbow',
+		success: function(data){
+			$('#loader').loader('hide');
+		}
 	});
 });
 
