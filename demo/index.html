@@ -7,7 +7,7 @@
 		<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="../resources/raphael.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="../resources/highlight.pack.js"></script>
-		<script type="text/javascript" charset="utf-8" src="../fn.loader.js"></script>
+		<script type="text/javascript" charset="utf-8" src="packages/fn.loader.min.js"></script>
 		
 		<script type="text/javascript" charset="utf-8">
 			hljs.initHighlightingOnLoad();
@@ -21,8 +21,20 @@
 				background:#101010 url(images/cardboard.png) repeat left top;
 			}
 			
+			a, a:visited{
+				text-decoration:none;
+				color:#039;
+			}
+			
+			a:hover{
+				background-color:#039;
+				color:#fff;
+			}
+			
 			h1{
+				font-size:35px;
 				text-align:center;
+				margin-bottom:4px;
 			}
 			
 			h2{
@@ -34,11 +46,23 @@
 				top:50%;
 			}
 			
+			#subheader{
+				width:600px;
+				margin:4px auto;
+				text-align:center;
+				font-size:16px;
+			}
+			
+			#footer{
+				font-size:12px;
+				text-align:center;
+			}
+			
 			.box{
 				position:relative;
 				background-color:rgba(175, 175, 175, .6);
 				width:645px;
-				margin:60px auto;
+				margin:30px auto;
 				border-radius:6px;
 				border:1px solid #d8d8d8;
 			}
@@ -48,9 +72,9 @@
 				display:block;
 				margin:16px 0 0 16px;
 				width:264px;
-				height:144px;
+				height:156px;
 				padding:16px;
-				background-color:#efefef;
+				background-color:#fff;
 			}
 			
 			.box .box.omega{
@@ -61,6 +85,13 @@
 				margin-right:0;
 				width:580px;
 				clear:both;
+				height:auto;
+				min-height:156px;
+			}
+			
+			.box .box.auto-height{
+				min-height:0;
+				height:auto;
 			}
 			
 			.clear{
@@ -90,7 +121,7 @@
 			}
 			
 			ul.form li input[type="text"]{
-				width:100px;
+				width:75px;
 				border-radius:3px;
 				border:1px solid #d8d8d8;
 				padding:4px;
@@ -99,7 +130,7 @@
 			}
 			
 			ul.form li input[type="text"].small{
-				width:40px;
+				width:28px;
 			}
 			
 			ul.form li input[type="radio"]{
@@ -122,14 +153,23 @@
 			}
 			
 			ul.form li input[type="button"]{
-				padding:12px 24px;
+				padding:2px 12px;
 				font-size:16px;
-				float:right;
+				width:90px;
+				height:30px;
+				border-width:1px;
+				border-radius:3px;
+				background-color:#efefef;
+			}
+			
+			ul.form li input[type="button"]:hover{
+				background-color:#ddd;
 			}
 		</style>
 	</head>
 	<body>
-		<h1>Dynamic loader with jQuery and Raphael</h1>
+		<h1>Michelangeloader</h1>
+		<p id="subheader">Michelangeloader is a <a href="http://jquery.com" target="_blank">jQuery</a> plugin that utilizes <a href="http://raphaeljs.com/" target="_blank">RaphaelJS</a> to create dynamic and easy to use loading icons</p>
 		
 		<div class="box">
 			<div class="box float" style="text-align:center;">
@@ -145,9 +185,21 @@
 							<label style="display:inline;"><input type="radio" name="type" value="dots" checked="checked" /> Dots</label>
 							<label style="display:inline;"><input type="radio" name="type" value="lines" /> Lines</label>
 						</li>
-						<li class="inline">
-							<label><strong>Diameter</strong></label>
+						<li>
+							<label><strong>Sectors:</strong></label>
+							<input type="text" name="sectors" value="8" class="small" />
+						</li>
+						<li class="inline dots">
+							<label><strong>Diameter:</strong></label>
 							<input type="text" name="d" value="30" class="small" />
+						</li>
+						<li class="inline lines">
+							<label><strong>R1:</strong></label>
+							<input type="text" name="r1" value="25" class="small" />
+						</li>
+						<li class="inline lines">
+							<label><strong>R2:</strong></label>
+							<input type="text" name="r2" value="40" class="small" />
 						</li>
 						<li class="inline">
 							<label><strong>Width:</strong></label>
@@ -155,10 +207,7 @@
 						</li>
 						<li class="inline">
 							<label><strong>Color:</strong></label>
-							<input type="text" name="color" value="#888888" />
-						</li>
-						<li>
-							<input type="button" id="pause" value="Pause" />
+							<input type="text" name="color" value="#333333" />
 						</li>
 					</ul>
 				</form>
@@ -169,22 +218,68 @@
 				<pre><code class="javascript"></code></pre>
 			</div>
 			
+			<div class="box fullsize auto-height">
+				<h2>Downloads</h2>
+				<div>
+					<ul>
+						<li><a href="packages/fn.loader.min.js">Plugin Only (minified)</a></li>
+						<li><a href="packages/michelangeloader.tar">Plugin w/ Raphael (tar)</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="box fullsize auto-height" id="footer">
+				Michelangeloader was created by <a href="http://lukestebner.com" target="_blank">Luke Stebner</a> and lives on <a href="https://github.com/lstebner/michelangeloader">Github</a>. It is free for anyone to use and modify. Please report any issues you find with Michelangeloader on Github and if you make any useful modifications I encourage you to make them available for everyone else's benefit also.<br /><br />
+				Down with animated gifs!
+			</div>
+			
 			<div class="clear"></div>
 		</div>
 		
 		<script type="text/javascript" charset="utf-8">
 			function loader_settings(){
-				return {
-					type: $('input[name=type]').val(),
-					d: Number($('input[name=d]').val()),
+				var settings = {
+					type: $('input[name=type]:checked').val(),
 					width: Number($('input[name=width]').val()),
 					color: $('input[name=color]').val(),
-					start: true
+					start: true,
+					sectors: Number($('input[name=sectors]').val())
 				};
+				
+				switch( $('input[name=type]:checked').val() ){
+					case 'dots':
+						settings['d'] = Number($('input[name=d]').val());
+						break;
+						
+					case 'lines':
+						settings['r1'] = Number($('input[name=r1]').val());
+						settings['r2'] = Number($('input[name=r2]').val());
+						break;
+				}
+				
+				return settings;
 			}
 			
 			function get_code(settings){
-				return "$('#loader').loader({\n\ttype: \""+settings.type+"\",\n\td: "+settings.d+",\n\twidth: "+settings.width+",\n\tcolor: \""+settings.color+"\"\n});"
+				var code = [];
+				
+				for (var i in settings){
+					var piece = "\n\t" + i + ": ";
+					
+					if (typeof(settings[i]) == 'string'){
+						piece += '"';
+					}
+					
+					piece += settings[i];
+					
+					if (typeof(settings[i]) == 'string'){
+						piece += '"';
+					}
+					
+					code.push(piece);
+				}
+				
+				return "$('#loader').loader({" + code.join(",") + "\n});";
 			}
 			
 			function refresh_loader(){
@@ -202,6 +297,8 @@
 			$(function(){
 				var edit_timeout = null;
 				
+				$('.lines').hide();
+				
 				refresh_loader();
 				
 				$('#loader-settings').find('input').change(function(){
@@ -217,20 +314,12 @@
 						refresh_loader();
 					}, 500);
 				});
+								
+				$('input[name=type]').click(function(){
+					$('.dots, .lines').hide();
+					$('.' + $(this).val()).show();
+				});
 			});
-			
-			$('#pause').click(function(e){
-				e.preventDefault();
-				
-				if ($(this).val() == 'Pause'){
-					$('#loader').loader('pause');
-					$(this).val('Resume');
-				}
-				else{
-					$('#loader').loader('start');
-					$(this).val('Pause');
-				}
-			})
 		</script>
 	</body>
 </html>
