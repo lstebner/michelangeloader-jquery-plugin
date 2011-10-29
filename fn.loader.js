@@ -6,14 +6,16 @@ var loaders = {
 			d: 9,
 			width: 2.5,
 			color:'#111',
-			type: 'dots'
+			type: 'dots',
+			start: true
 		},
 		//large
 		large: {
 			d: 20,
 			width: 6,
 			type: 'dots',
-			color: '#888'
+			color: '#888',
+			start: true
 		}
 	},
 	lines: {
@@ -23,7 +25,8 @@ var loaders = {
 			r2: 12,
 			width: 2,
 			color:'#111',
-			type: 'lines'
+			type: 'lines',
+			start: true
 		}
 	}
 };
@@ -99,9 +102,16 @@ var loaders = {
 			_calc: function(opts){
 				methods.updateSettings( opts );
 				
+				if (data.r){
+					data.r.clear();
+					data.r.setSize( settings.r2 * 2 + settings.width * 2, settings.r2 * 2 + settings.width * 2 );
+				}
+				else{
+					data.r = Raphael($self.attr('id'), settings.r2 * 2 + settings.width * 2, settings.r2 * 2 + settings.width * 2);
+				}
+				
 				data.cx = settings.r2 + settings.width;
 				data.cy = settings.r2 + settings.width;
-				data.r = Raphael($self.attr('id'), settings.r2 * 2 + settings.width * 2, settings.r2 * 2 + settings.width * 2);
 				data.sectors = [];
 				data.opacity = [];
 				data.beta = 2 * Math.PI / settings.sectors;

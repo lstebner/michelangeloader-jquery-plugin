@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Loader Examples</title>
+		
+		<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../resources/raphael.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../fn.loader.js"></script>
+		
+		<style type="text/css" media="screen">
+			body{
+				font-family:"Helvetica Neue", Arial, sans-serif;
+				background-color:#333;
+				background:#101010 url(images/cardboard.png) repeat left top;
+			}
+			
+			h1{
+				text-align:center;
+			}
+			
+			#loader{
+				position:relative;
+				top:50%;
+			}
+			
+			.box{
+				position:relative;
+				background-color:rgba(175, 175, 175, .6);
+				width:645px;
+				margin:60px auto;
+				border-radius:6px;
+				border:1px solid #d8d8d8;
+			}
+			
+			.box .box{
+				float:left;
+				display:block;
+				margin:16px 0 16px 16px;
+				width:264px;
+				height:144px;
+				padding:16px;
+				background-color:#efefef;
+			}
+			
+			.box .box:last-child{
+				margin-right:0;
+			}
+			
+			.clear{
+				display:block;
+				clear:both;
+				overflow:hidden;
+				height:1px;
+			}
+			
+			ul.form{
+				list-style-type:none;
+				padding:0;
+				margin:0;
+			}
+			
+			ul.form li{
+				padding:6px;
+			}
+			
+			ul.form li.inline{
+				display:inline-block;
+			}
+			
+			ul.form li label{
+				display:block;
+				font-size:12px;
+			}
+			
+			ul.form li input[type="text"]{
+				width:100px;
+				border-radius:3px;
+				border:1px solid #d8d8d8;
+				padding:4px;
+				line-height:14px;
+				font-size:16px;
+			}
+			
+			ul.form li input[type="text"].small{
+				width:40px;
+			}
+			
+			ul.form li input[type="radio"]{
+				background:none;
+				display:inline-block;
+				padding:4px;
+				border:1px solid #222;
+				text-align:center;
+				background-color:#eee;
+			}
+			
+			ul.form li input[type="radio"]:first-child{
+				border-top-left-radius: 3px;
+				border-bottom-left-radius: 3px;
+			}
+			
+			ul.form li input[type="radio"]:last-child{
+				border-top-right-radius: 3px;
+				border-bottom-right-radius: 3px;
+			}
+			
+			ul.form li input[type="button"]{
+				padding:12px 24px;
+				font-size:16px;
+				float:right;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Dynamic loader with jQuery and Raphael</h1>
+		
+		<div class="box">
+			<div class="box float" style="text-align:center;">
+				<div id="loader"></div>
+			</div>
+			
+			<div class="box float">
+				<form id="loader-settings">
+					<ul class="form">
+						<li>
+							<label><strong>Type:</strong></label>
+						
+							<label style="display:inline;"><input type="radio" name="type" value="dots" checked="checked" /> Dots</label>
+							<label style="display:inline;"><input type="radio" name="type" value="lines" /> Lines</label>
+						</li>
+						<li class="inline">
+							<label><strong>Diameter</strong></label>
+							<input type="text" name="d" value="30" class="small" /></li>
+						<li class="inline">
+							<label><strong>Width:</strong></label>
+							<input type="text" name="width" value="9" class="small" />
+						</li>
+						<li class="inline">
+							<label><strong>Color:</strong></label>
+							<input type="text" name="color" value="#888888" />
+						</li>
+						<li>
+							<input type="button" id="pause" value="Pause" />
+						</li>
+					</ul>
+				</form>
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+		
+		<script type="text/javascript" charset="utf-8">
+			function loader_settings(){
+				return {
+					type: $('input[name=type]').val(),
+					d: Number($('input[name=d]').val()),
+					width: Number($('input[name=width]').val()),
+					color: $('input[name=color]').val(),
+					start: true
+				};
+			}
+			
+			function refresh_loader(){
+				$('#loader').loader( loader_settings() );
+				$('#loader').css({ marginTop:'-' + Math.round(Number($('#loader').height()) / 2) + 'px' });
+			}
+		
+			$(function(){
+				refresh_loader();
+				
+				$('#loader-settings').find('input').change(function(){
+					refresh_loader();
+				});
+			});
+			
+			$('#pause').click(function(e){
+				e.preventDefault();
+				
+				if ($(this).val() == 'Pause'){
+					$('#loader').loader('pause');
+					$(this).val('Resume');
+				}
+				else{
+					$('#loader').loader('start');
+					$(this).val('Pause');
+				}
+			})
+		</script>
+	</body>
+</html>
