@@ -1,7 +1,7 @@
 //these are predefined settings for various types of loaders
 var loaders = {
 	circles: {
-		//made for header of any module
+		//small
 		small: {
 			d: 9,
 			width: 2.5,
@@ -19,7 +19,7 @@ var loaders = {
 		}
 	},
 	lines: {
-		//made for header of module
+		//small
 		small: {
 			r1: 7,
 			r2: 12,
