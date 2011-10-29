@@ -6,8 +6,14 @@
 		
 		<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="../resources/raphael.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../resources/highlight.pack.js"></script>
 		<script type="text/javascript" charset="utf-8" src="../fn.loader.js"></script>
 		
+		<script type="text/javascript" charset="utf-8">
+			hljs.initHighlightingOnLoad();
+		</script>
+		
+		<link rel="stylesheet" href="../resources/github.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<style type="text/css" media="screen">
 			body{
 				font-family:"Helvetica Neue", Arial, sans-serif;
@@ -17,6 +23,10 @@
 			
 			h1{
 				text-align:center;
+			}
+			
+			h2{
+				margin:2px 0;
 			}
 			
 			#loader{
@@ -36,22 +46,28 @@
 			.box .box{
 				float:left;
 				display:block;
-				margin:16px 0 16px 16px;
+				margin:16px 0 0 16px;
 				width:264px;
 				height:144px;
 				padding:16px;
 				background-color:#efefef;
 			}
 			
-			.box .box:last-child{
+			.box .box.omega{
 				margin-right:0;
+			}
+			
+			.box .box.fullsize{
+				margin-right:0;
+				width:580px;
+				clear:both;
 			}
 			
 			.clear{
 				display:block;
 				clear:both;
 				overflow:hidden;
-				height:1px;
+				height:16px;
 			}
 			
 			ul.form{
@@ -120,7 +136,7 @@
 				<div id="loader"></div>
 			</div>
 			
-			<div class="box float">
+			<div class="box float omega">
 				<form id="loader-settings">
 					<ul class="form">
 						<li>
@@ -131,7 +147,8 @@
 						</li>
 						<li class="inline">
 							<label><strong>Diameter</strong></label>
-							<input type="text" name="d" value="30" class="small" /></li>
+							<input type="text" name="d" value="30" class="small" />
+						</li>
 						<li class="inline">
 							<label><strong>Width:</strong></label>
 							<input type="text" name="width" value="9" class="small" />
@@ -145,6 +162,11 @@
 						</li>
 					</ul>
 				</form>
+			</div>
+			
+			<div class="box fullsize">
+				<h2>The Code</h2>
+				<pre><code class="javascript"></code></pre>
 			</div>
 			
 			<div class="clear"></div>
@@ -161,16 +183,39 @@
 				};
 			}
 			
+			function get_code(settings){
+				return "$('#loader').loader({\n\ttype: \""+settings.type+"\",\n\td: "+settings.d+",\n\twidth: "+settings.width+",\n\tcolor: \""+settings.color+"\"\n});"
+			}
+			
 			function refresh_loader(){
-				$('#loader').loader( loader_settings() );
+				var settings = loader_settings(); 
+				
+				$('#loader').loader( settings );
 				$('#loader').css({ marginTop:'-' + Math.round(Number($('#loader').height()) / 2) + 'px' });
+				$('code').text( get_code(settings) );
+				
+				$(document).ready(function() {
+				  $('pre code').each(function(i, e) {hljs.highlightBlock(e, '    ')});
+				});
 			}
 		
 			$(function(){
+				var edit_timeout = null;
+				
 				refresh_loader();
 				
 				$('#loader-settings').find('input').change(function(){
 					refresh_loader();
+				});
+				
+				$('#loader-settings').find('input').keydown(function(){
+					if (edit_timeout){
+						clearTimeout(edit_timeout);
+					}
+					
+					edit_timeout = setTimeout(function(){
+						refresh_loader();
+					}, 500);
 				});
 			});
 			
