@@ -36,10 +36,12 @@ Options
 	o Tells the loader to begin spinning on init or to wait until 'start' is called
 	
 - type: string
-	o Types allow for different visuals to be set for the loader, there are 2 types built in 'dots' and 'lines'. Check out the demo to see the difference
+	o Types allow for different visuals to be set for the loader, there are 2 types built in 
+	  'dots' and 'lines'. Check out the demo to see the difference
 	
 - width: number
-	o The width of the sectors, what this exactly means will vary based on type. For lines, it is the width of each line, for dots it is the radius of each dot.
+	o The width of the sectors, what this exactly means will vary based on type. For lines, it 
+	  is the width of each line, for dots it is the radius of each dot.
 	
 - color: string
 	o The color to use for the sectors
@@ -65,11 +67,13 @@ Options
 	o $('#loader').loader('start')
 	
 - pause
-	o Call this method to pause the spinning (useful when the loader is not visible so you aren't processing the animations)
+	o Call this method to pause the spinning (useful when the loader is not visible so you aren't 
+	  processing the animations)
 	o $('#loader').loader('pause')
 
 - show
-	o This method is more of a helper than anything, it will call .show() on the element along with start.
+	o This method is more of a helper than anything, it will call .show() on the element along 
+	  with start.
 	o $('#loader').loader('show')
 	
 - hide
@@ -119,5 +123,6 @@ $('#loader').loader( loaders.circles.large );
 -----------------------------------------------
  Credit
 -----------------------------------------------
-This plugin was created by Luke Stebner and is available free for anyone to use and modify. The base logic was ported from the Raphael demo http://raphaeljs.com/spin-spin-spin.html. 
+This plugin was created by Luke Stebner and is available free for anyone to use and modify. The base 
+logic was ported from the Raphael demo http://raphaeljs.com/spin-spin-spin.html. 
 
