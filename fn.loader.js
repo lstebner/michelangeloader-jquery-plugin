@@ -1,39 +1,14 @@
-//these are predefined settings for various types of loaders
-var loaders = {
-	circles: {
-		//small
-		small: {
-			d: 9,
-			width: 2.5,
-			color:'#111',
-			type: 'dots',
-			start: true
-		},
-		//large
-		large: {
-			d: 20,
-			width: 6,
-			type: 'dots',
-			color: '#888',
-			start: true
-		}
-	},
-	lines: {
-		//small
-		small: {
-			r1: 7,
-			r2: 12,
-			width: 2,
-			color:'#111',
-			type: 'lines',
-			start: true
-		}
-	}
-};
-
-
 (function($){
 	$.fn.loader = function(opts, args){
+		if (this.length == 0){
+			return false;
+		}
+		else if (this.length > 1){
+			return this.each(function(){
+				this.loader( opts, args );
+			});
+		}
+		
 		if (!opts){ opts = {}; }
 		var $self = this;
 		var key = 'loader';
@@ -69,7 +44,7 @@ var loaders = {
 		var methods = {
 			//initialize
 			init: function(){
-				if (!$self.attr('id')){ $self.attr('id', key + '-' + Math.random(10000)); }
+				if (!$self.attr('id')){ $self.attr('id', 'loader-' + Math.ceil(Math.random() * 10000)).addClass('fnloader'); }
 				
 				Raphael.getColor.reset();
 				
@@ -81,7 +56,7 @@ var loaders = {
 					settings.r2 = settings.d;
 				}
 				
-				methods._calc();
+				methods.calc();
 				//one tick makes sure all opacities are synced immediately
 				methods.tick();
 				
@@ -99,7 +74,9 @@ var loaders = {
 			saveData: function(){
 				$self.data('loader-data', data);
 			},
-			_calc: function(opts){
+			calc: function(opts){
+				var i = 0;
+				
 				methods.updateSettings( opts );
 				
 				if (data.r){
@@ -123,7 +100,7 @@ var loaders = {
 					data.params = { fill: settings.color, stroke:'none' };
 				}
 				
-				for (var i = 0; i < settings.sectors; i++) {
+				for (i = 0; i < settings.sectors; i++) {
 				    var alpha = data.beta * i - Math.PI / 2,
 				        cos = Math.cos(alpha),
 				        sin = Math.sin(alpha)
@@ -171,8 +148,10 @@ var loaders = {
 				$self.show();
 			},
 			tick: function(){
+				var i = 0;
+				
 				data.opacity.unshift( data.opacity.pop() );
-			    for (var i = 0; i < settings.sectors; i++) {
+			    for (i = 0; i < settings.sectors; i++) {
 			        data.sectors[i].attr("opacity", data.opacity[i]);
 			    }
 			    data.r.safari();
@@ -182,7 +161,7 @@ var loaders = {
 		};
 		
 		if (typeof(opts) == 'string'){
-			if (opts in methods){
+			if (methods.hasOwnProperty(opts)){
 				var r = methods[opts](args);
 				if (!r){ return $self; }
 				else{ return r; }
@@ -192,5 +171,5 @@ var loaders = {
 			methods.init();
 			return $self;
 		}
-	}
+	};
 })( jQuery );
