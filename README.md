@@ -57,6 +57,7 @@ $('#make-stuff').click(function(e){
 
 ## Options
 
+````
 - start: bool
 	o Tells the loader to begin spinning on init or to wait until 'start' is called
 	
@@ -82,10 +83,12 @@ $('#make-stuff').click(function(e){
 	
 - d: number
 	o The circle radius (*used only for type 'dots')
+````
 
 
 ## Methods
 
+````
 - start
 	o Call this method to start the spinning
 	o $('#loader').loader('start')
@@ -103,6 +106,7 @@ $('#make-stuff').click(function(e){
 - hide
 	o Another helper, this calls .hide() and also pause
 	o $('#loader').loader('hide')
+````
 	
 # Some Example Settings
 
